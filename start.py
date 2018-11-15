@@ -1,0 +1,20 @@
+# -*- coding:UTF-8 -*-
+from game import Game
+
+game = Game()
+game.next('white', 6, 7)
+game.next('white', 6, 6)
+game.next('white', 6, 8)
+game.next('white', 6, 2)
+game.next('white', 7, 7)
+game.next('white', 7, 10)
+game.next('white', 5, 7)
+game.next('white', 8, 7)
+# game.next('white', 9, 7)
+# game.next('white', 7, 9)
+game.next('white', 4, 6)
+game.next('white', 3, 5)
+game.next('white', 7, 5)
+game.next('white', 4, 8)
+game.next('white', 9, 3)
+game.next('white', 8, 4)
