@@ -22,19 +22,19 @@ class Game(object):
     def next(self, chess_type, row, column):
         self.row = row
         self.column = column
+        self.chess_type = chess_type
         if self.chesses[self.row][self.column] == ".":
-            if chess_type == "white":
+            if self.chess_type == "white":
                 self.chesses[self.row][self.column] = "X"
             else:
                 self.chesses[self.row][self.column] = "O"
         chessboard = self.draw()
         print chessboard
-        re = self.check()
-        print "re", re
+        self.check()
 
     def result(self, count):
         if count == 5:
-            print("success")
+            print("%s success!" % self.chess_type)
             exit(0)
 
     def check(self):
@@ -108,27 +108,28 @@ class Game(object):
                 break
 
 if __name__ == "__main__":
-    print("Game start: ")
     try:
+        print("Game start: ")
+        color = random.choice(["white", "black"])
         game = Game()
         while True:
-            for color in ["white", "black"]:
-                input_value = raw_input("%s: " % color).strip()
-                pattern = re.compile("^(0?[0-9]|1[0-4])\\s+(0?[0-9]|1[0-4])$")
-                input_number = pattern.search(input_value)
-                if input_number:
-                    row = input_number.group(1)
-                    column = input_number.group(2)
-                    if row.isdigit() and column.isdigit():
-                        row = int(row)
-                        column = int(column)
-                        game.next(color, row, column)
-                    else:
-                        print("Input number please.")
-                        input_value = raw_input("%s: " % color).strip()
+            input_value = raw_input("%s: " % color).strip()
+            pattern = re.compile("^(0?[0-9]|1[0-4])\\s+(0?[0-9]|1[0-4])$")
+            input_number = pattern.search(input_value)
+            if input_number:
+                row = input_number.group(1)
+                column = input_number.group(2)
+                if row.isdigit() and column.isdigit():
+                    row = int(row)
+                    column = int(column)
+                    game.next(color, row, column)
                 else:
-                    print("Input two numbers separated by spaces.")
-                    input_value = raw_input("%s: " % color).strip()
+                    print("Input number please.")
+                    continue
+            else:
+                print("Input two numbers separated by spaces.")
+                continue
+            color = "black" if color == "white" else "white"
     except Exception as e:
-        print e
+        print 'error', e
         exit(1)

@@ -1,11 +1,17 @@
-import re
-a = re.compile("^(0?[0-9]|1[0-4])\\s+(0?[0-9]|1[0-4])$")
-b = a.search("12  14")
-# print b.group()
-# print b
-if b:
-    c = b.group(1)
-    print b.group(0)
-    print b.group(1)
-    print b.group(2)
-    print type(c)
+import web
+
+urls = ("/", "index")
+
+class index(object):
+    def GET(self):
+        return "HAHA"
+
+class MyApplication(web.application):
+    def run(self, port=8080, *middleware):
+        func = self.wsgifunc(*middleware)
+        return web.httpserver.runsimple(func, ('0.0.0.0', port))
+
+if __name__ == "__main__":
+    app = web.application(urls, globals())
+    app.run("10.234.130.27:8888")
+
