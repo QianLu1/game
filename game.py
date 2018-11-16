@@ -28,9 +28,12 @@ class Game(object):
                 self.chesses[self.row][self.column] = "X"
             else:
                 self.chesses[self.row][self.column] = "O"
+        else:
+            return False
         chessboard = self.draw()
         print chessboard
         self.check()
+        return True
 
     def result(self, count):
         if count == 5:
@@ -106,30 +109,3 @@ class Game(object):
                 self.result(right_incline_count)
             else:
                 break
-
-if __name__ == "__main__":
-    try:
-        print("Game start: ")
-        color = random.choice(["white", "black"])
-        game = Game()
-        while True:
-            input_value = raw_input("%s: " % color).strip()
-            pattern = re.compile("^(0?[0-9]|1[0-4])\\s+(0?[0-9]|1[0-4])$")
-            input_number = pattern.search(input_value)
-            if input_number:
-                row = input_number.group(1)
-                column = input_number.group(2)
-                if row.isdigit() and column.isdigit():
-                    row = int(row)
-                    column = int(column)
-                    game.next(color, row, column)
-                else:
-                    print("Input number please.")
-                    continue
-            else:
-                print("Input two numbers separated by spaces.")
-                continue
-            color = "black" if color == "white" else "white"
-    except Exception as e:
-        print 'error', e
-        exit(1)
