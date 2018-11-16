@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import random
+import re
 class Game(object):
     def __init__(self):
         # self.chess = [[0]*16]*16
@@ -112,49 +113,22 @@ if __name__ == "__main__":
         game = Game()
         while True:
             for color in ["white", "black"]:
-                value = raw_input("%s: " % color)
-                site = value.split(" ")
-                if (len(site) != 2):
-                    print("Again: ")
-                    value = raw_input("%s: " % color)
-                row = site[0]
-                column = site[1]
-                if row.isdigit() or column.isdigit():
-                    row = int(site[0])
-                    column = int(site[1])
-                else: 
-                    print("Again: ")
-                    value = raw_input("%s: " % color)
-                if (row in range(0, 16) and column in range(0, 16)):
-                    game.next(color, row, column)
-                else: 
-                    print("Again: ")
-                    value = raw_input("%s: " % color)
+                input_value = raw_input("%s: " % color).strip()
+                pattern = re.compile("^(0?[0-9]|1[0-4])\\s+(0?[0-9]|1[0-4])$")
+                input_number = pattern.search(input_value)
+                if input_number:
+                    row = input_number.group(1)
+                    column = input_number.group(2)
+                    if row.isdigit() and column.isdigit():
+                        row = int(row)
+                        column = int(column)
+                        game.next(color, row, column)
+                    else:
+                        print("Input number please.")
+                        input_value = raw_input("%s: " % color).strip()
+                else:
+                    print("Input two numbers separated by spaces.")
+                    input_value = raw_input("%s: " % color).strip()
     except Exception as e:
         print e
         exit(1)
-
-
-    # game = Game()
-
-    # game.next('white', 6, 7)
-    # game.next('white', 6, 6)
-    # game.next('white', 6, 8)
-    # game.next('white', 6, 2)
-    # game.next('white', 7, 7)
-    # game.next('white', 7, 10)
-    # game.next('white', 5, 7)
-    # game.next('white', 8, 7)
-    # # game.next('white', 9, 7)
-    # # game.next('white', 7, 9)
-    # game.next('white', 4, 6)
-    # game.next('white', 3, 5)
-    # game.next('white', 7, 5)
-    # game.next('white', 4, 8)
-    # game.next('white', 9, 3)
-    # game.next('white', 8, 4)
-    # game.next('white', 9, 0)
-
-
-
-
