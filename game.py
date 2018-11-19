@@ -19,10 +19,7 @@ class Game(object):
                chessboard += "\n"
         return chessboard
 
-    def next(self, chess_type, row, column):
-        self.row = row
-        self.column = column
-        self.chess_type = chess_type
+    def next(self):
         if self.chesses[self.row][self.column] == ".":
             if self.chess_type == "white":
                 self.chesses[self.row][self.column] = "X"
@@ -109,3 +106,40 @@ class Game(object):
                 self.result(right_incline_count)
             else:
                 break
+
+    def start(self):
+        try:
+            isstarted = raw_input("Start game? Y or N: ").strip()
+            if isstarted == "Y":
+                print("Game start: ")                
+            elif isstarted == "N":
+                print("Quit")
+                exit(0)
+            else:
+                print("Not making the right choices.")
+                exit(0)
+            self.chess_type = random.choice(["white", "black"])
+            while True:
+                input_value = raw_input("%s: " % self.chess_type).strip()
+                pattern = re.compile("^(0?[0-9]|1[0-4])\\s+(0?[0-9]|1[0-4])$")
+                input_number = pattern.search(input_value)
+                if input_number:
+                    row = input_number.group(1)
+                    column = input_number.group(2)
+                    if row.isdigit() and column.isdigit():
+                        self.row = int(row)
+                        self.column = int(column)
+                        result = self.next()
+                        if not result:
+                            print("This position is occupied, input again.")
+                            continue
+                    else:
+                        print("Input number please.")
+                        continue
+                else:
+                    print("Input two numbers separated by spaces.")
+                    continue
+                self.chess_type = "black" if self.chess_type == "white" else "white"
+        except Exception as e:
+            print 'error', e
+            exit(1)
