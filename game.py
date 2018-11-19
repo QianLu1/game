@@ -35,6 +35,7 @@ class Game(object):
     def result(self, count):
         if count == 5:
             print("%s success!" % self.chess_type)
+            print(self.chesses)
             exit(0)
 
     def check(self):
@@ -109,10 +110,10 @@ class Game(object):
 
     def start(self):
         try:
-            isstarted = raw_input("Start game? Y or N: ").strip()
-            if isstarted == "Y":
+            isstarted = raw_input("Start game? Y/y or N/n: ").strip()
+            if isstarted.lower() == "y":
                 print("Game start: ")                
-            elif isstarted == "N":
+            elif isstarted.lower() == "n":
                 print("Quit")
                 exit(0)
             else:
