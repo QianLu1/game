@@ -35,7 +35,6 @@ class Game(object):
     def result(self, count):
         if count == 5:
             print("%s success!" % self.chess_type)
-            print(self.chesses)
             exit(0)
 
     def check(self):
@@ -71,18 +70,14 @@ class Game(object):
                 break
         # 斜向搜索 - 左上搜索
         left_incline_count = 1
-        for each in zip(range(self.row - 1, -1, -1), range(self.column - 1, -1, -1)):
-            each_row = each[0]
-            each_column = each[1]
+        for each_row, each_column in zip(range(self.row - 1, -1, -1), range(self.column - 1, -1, -1)):
             if self.chesses[each_row][each_column] == self.chesses[self.row][self.column]:
                 left_incline_count += 1
                 self.result(left_incline_count)
             else:
                 break
         # 斜向搜索 - 右下搜索
-        for each in zip(range(self.row + 1, 15), range(self.column + 1, 15)):
-            each_row = each[0]
-            each_column = each[1]
+        for each_row, each_column in zip(range(self.row + 1, 15), range(self.column + 1, 15)):
             if self.chesses[each_row][each_column] == self.chesses[self.row][self.column]:
                 left_incline_count += 1
                 self.result(left_incline_count)
@@ -90,18 +85,14 @@ class Game(object):
                 break
         # 斜向搜索 - 右上搜索
         right_incline_count = 1
-        for each in zip(range(self.row - 1, -1, -1), range(self.column + 1, 15)):
-            each_row = each[0]
-            each_column = each[1]
+        for each_row, each_column in zip(range(self.row - 1, -1, -1), range(self.column + 1, 15)):
             if self.chesses[each_row][each_column] == self.chesses[self.row][self.column]:
                 right_incline_count += 1
                 self.result(right_incline_count)
             else:
                 break
         # 斜向搜索 - 左下搜索
-        for each in zip(range(self.row + 1, 15), range(self.column - 1, -1, -1)):
-            each_row = each[0]
-            each_column = each[1]
+        for each_row, each_column in zip(range(self.row + 1, 15), range(self.column - 1, -1, -1)):
             if self.chesses[each_row][each_column] == self.chesses[self.row][self.column]:
                 right_incline_count += 1
                 self.result(right_incline_count)
@@ -150,7 +141,7 @@ class Game(object):
                 ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], 
                 ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
                 ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
-                ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
+                ['.', '.', '.', '.', '.', 'x', '.', '.', '.', '.', '.', '.', '.', '.', '.'],
                 ['.', '.', '.', '.', '.', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.'],
                 ['.', '.', '.', '.', '.', '.', 'X', 'O', '.', '.', '.', '.', '.', '.', '.'],
                 ['.', '.', '.', '.', '.', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.'],
@@ -164,4 +155,6 @@ class Game(object):
                 ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']
             ]
         for row in test:
-            
+            for column in row:
+                if column == "x":
+                    pass
